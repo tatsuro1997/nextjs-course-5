@@ -2,16 +2,16 @@ import path from "path";
 import fs from "fs/promises";
 
 function ProductDetailPage(props) {
-  const { leaodedProduct } = props;
+  const { loadedProduct } = props;
 
-  if (!leaodedProduct) {
+  if (!loadedProduct) {
     return <p>Loading...</p>;
   }
 
   return (
     <>
-      <h1>{leaodedProduct.title}</h1>
-      <p>{leaodedProduct.description}</p>
+      <h1>{loadedProduct.title}</h1>
+      <p>{loadedProduct.description}</p>
     </>
   );
 }
@@ -39,7 +39,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      leaodedProduct: product,
+      loadedProduct: product,
     },
   };
 }
