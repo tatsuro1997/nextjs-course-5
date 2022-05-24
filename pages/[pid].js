@@ -4,9 +4,9 @@ import fs from "fs/promises";
 function ProductDetailPage(props) {
   const { leaodedProduct } = props;
 
-  // if (!leaodedProduct) {
-  //   return <p>Loading...</p>;
-  // }
+  if (!leaodedProduct) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -20,6 +20,8 @@ async function getData() {
   const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
   const jsonData = await fs.readFile(filePath);
   const data = JSON.parse(jsonData);
+
+  return data;
 }
 
 export async function getStaticProps(context) {
@@ -30,6 +32,10 @@ export async function getStaticProps(context) {
   const data = await getData();
 
   const product = data.products.find((product) => product.id === productId);
+
+  if (!product) {
+    return { notFound: true };
+  }
 
   return {
     props: {
@@ -47,7 +53,7 @@ export async function getStaticPaths() {
 
   return {
     paths: pathsWithParams,
-    fallback: false,
+    fallback: true,
   };
 }
 
