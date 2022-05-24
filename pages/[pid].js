@@ -21,13 +21,24 @@ export async function getStaticProps(context) {
   const jsonData = await fs.readFile(filePath);
   const data = JSON.parse(jsonData);
 
-  const product = data.products.find(product => product.id === productId);
+  const product = data.products.find((product) => product.id === productId);
 
   return {
     props: {
-      leaodedProduct: product
-    }
-  }
+      leaodedProduct: product,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { pid: "p1" } },
+      { params: { pid: "p2" } },
+      { params: { pid: "p3" } },
+    ],
+    fallback: false
+  };
 }
 
 export default ProductDetailPage;
