@@ -1,13 +1,21 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+function HomePage(props) {
+  const { products } = props;
 
-export default function Home() {
   return (
     <ul>
-      <li>Pruduct 1</li>
-      <li>Pruduct 2</li>
-      <li>Pruduct 3</li>
+      {products.map((product) => (
+        <li key={product.id}>{product.title}</li>
+      ))}
     </ul>
   );
 }
+
+export async function getStaticProps() {
+  return {
+    props: {
+      products: [{ id: "p1", title: "Product 1" }],
+    },
+  };
+}
+
+export default HomePage;
